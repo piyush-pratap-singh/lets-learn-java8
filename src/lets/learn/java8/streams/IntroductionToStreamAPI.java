@@ -36,10 +36,27 @@ public class IntroductionToStreamAPI {
 
         Map<String, List<String>> map3 = StudentDatabase.getAllStudents().stream().
                 filter(predicate1). // using filter() which is taking predicate as a parameters
-                filter(predicate2).
-                collect(Collectors.
+                filter(predicate2). //  this will give Stream<Student>
+                collect(Collectors. // this will give desired results
                         toMap(Student::getName, Student::getActivities)); // using method references which
                                                                           // is taking functions as a parameter
         System.out.println(map3);
+
+        Map<String, List<String>> map4 = StudentDatabase.getAllStudents().stream().
+                peek(student -> {   // peek() will take consumer as a parameter
+                    System.out.println("Before any filter() method" + student); // it will give all students
+                }).
+                filter(predicate1). // using filter() which is taking predicate as a parameters
+                peek(student -> {   // peek() will take consumer as a parameter
+                    System.out.println("After first filter() method" + student);
+               }).
+                filter(predicate2). //  this will give Stream<Student>
+                peek(student -> {   // peek() will take consumer as a parameter
+                     System.out.println("After second filter() method" + student);
+               }).
+                collect(Collectors. // this will give desired results
+                toMap(Student::getName, Student::getActivities)); // using method references which
+                                                                 // is taking functions as a parameter
+        System.out.println(map4);
     }
 }
