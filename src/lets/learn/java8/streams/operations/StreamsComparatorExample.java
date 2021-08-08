@@ -12,7 +12,8 @@ public class StreamsComparatorExample {
     public static void main(String[] args){
 
        List<Student> studentNames = StudentDatabase.getAllStudents().stream()
-                .sorted(Comparator.comparing(Student::getName))
+                .sorted(Comparator.comparing(Student::getName)
+                        .reversed()) // it will sort in reverse order
                 .collect(Collectors.toList());
 
        System.out.println("Students sorted by name" + studentNames);
